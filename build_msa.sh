@@ -55,6 +55,7 @@ echo "DEV_PKI_VER: $DEV_PKI_VER"
 
 download_build_publish_to_local_maven_repo() {
     local PROJECT=$1
+    echo "----> Building $PROJECT"
     export BUILD_NUMBER=$(get_build_number $2)
     cd $ROOT_DIR
     if [ ! -d $PROJECT ]; then
@@ -74,8 +75,17 @@ download_build_publish_to_local_maven_repo() {
     local IDA_UTILS_FIXUP="s/ida_utils_version = '312'/ida_utils_version = '$IDA_UTILS_VER'/g"
     sed -i "$IDA_UTILS_FIXUP" build.gradle
     echo -n .
+    # fixup ida-dev-pki for hub-saml
+    local IDA_DEV_PKI_FIXUP="s/ida-dev-pki:1.1.0-20/ida-dev-pki:$DEV_PKI_VER/g"
+    sed -i "$IDA_DEV_PKI_FIXUP" build.gradle
+    echo -n .
     echo
-    git diff
+    # fixup saml-test-utils for hub-saml-test-utils
+    local SAML_TEST_UTILS_BUILD=$(get_build_number $SAML_TEST_UTILS_VER)
+    local SAML_TEST_UTILS_FIXUP="s/opensaml_version-27/opensaml_version-$SAML_TEST_UTILS_BUILD/g"
+    sed -i "$SAML_TEST_UTILS_FIXUP" hub-saml-test-utils/build.gradle || echo -n ''
+    echo -n .
+    echo    git diff
     ./gradlew clean publishToMavenLocal
 }
 
@@ -111,10 +121,11 @@ download_build_publish_to_local_maven_repo "verify-dropwizard-saml" $DROPWIZARD_
 download_build_publish_to_local_maven_repo "verify-hub-saml" $HUB_SAML_VER
 
 cd $ROOT_DIR/verify-matching-service-adapter
+echo "----> Building verify-matching-service-adapter"
 echo "Fixing up maven repos"
 sed -i 's/maven[^{]*{[^}]*}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/g' build.gradle
 git diff
 
-./gradlew clean distZip
+./gradlew clean test intTest zip
 
 cp build/distributions/*zip /root/output/
