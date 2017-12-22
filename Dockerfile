@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk
 
-ADD build_msa.sh .
-ADD build_vsp.sh .
+ADD ./build_libraries.sh .
+ADD ./build_and_start_apps.sh .
 
-CMD ./build_vsp.sh && ./build_msa.sh
+CMD ./build_libraries.sh && ./build_and_start_apps.sh

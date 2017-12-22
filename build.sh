@@ -5,6 +5,6 @@ cd $ROOT_DIR
 docker build -t verify-build .
 docker run -it --rm \
   -v $(pwd)/cache/gradle:/root/.gradle \
-  -v $(PWD)/cache/maven:/root/.m2 \
-  -v $(PWD)/output:/root/output \
+  -v $(pwd)/cache/maven:/root/.m2 \
+  -v $(pwd)/output:/root/output \
   verify-build
