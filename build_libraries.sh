@@ -49,6 +49,7 @@ download_build_publish_to_local_maven_repo() {
 #download_build_publish_to_local_maven_repo "verify-dev-pki"
 #download_build_publish_to_local_maven_repo "verify-saml-extensions"
 #download_build_publish_to_local_maven_repo "verify-test-utils"
+#download_build_publish_to_local_maven_repo "dropwizard-infinispan"
 #download_build_publish_to_local_maven_repo "dropwizard-logstash"
 #download_build_publish_to_local_maven_repo "dropwizard-jade"
 #download_build_publish_to_local_maven_repo "verify-utils-libs"
