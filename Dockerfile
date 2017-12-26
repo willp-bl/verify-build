@@ -23,6 +23,7 @@ RUN apt-get install -y nodejs node-typescript
 
 ADD ./build_libraries.sh .
 ADD ./build_and_start_apps.sh .
+ADD ./check_apps.sh .
 
 EXPOSE 3200 55500 50110 50240 50220 50160 51100 50120 50210 50130 50140 50400 50300
 

@@ -72,9 +72,7 @@ gem install bundler
 rbenv rehash
 mkdir -p /root/output/logs
 ln -s /root/output/logs logs
-
 # start the apps
-cd $ROOT_DIR
 GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./startup.sh
 GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./vsp-startup.sh
 
@@ -90,3 +88,6 @@ cd $ROOT_DIR
 ./check_apps.sh
 
 echo "everything started!"
+
+# start a shell, apps will be stopped when you exit
+bash
