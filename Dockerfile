@@ -14,6 +14,13 @@ RUN rbenv install 2.4.0
 # for verify-frontend/puma 3.6.0
 RUN apt-get -y install libssl1.0-dev
 
+# for verify-service-provider
+RUN apt-get install -y lsof
+
+# for passport-verify-stub-relying-party
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get install -y nodejs node-typescript
+
 ADD ./build_libraries.sh .
 ADD ./build_and_start_apps.sh .
 

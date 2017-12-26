@@ -9,13 +9,14 @@ ROOT_DIR=$(pwd)
 check() {
     APP=$1
     PORT=$2
-    curl -v http://localhost:$PORT/service-status 2>&1 | grep 200 && printf "%-15s -> %-10s\n" "$APP" "ok" || printf "%-15s -> %-10s\n" "$APP" "not started"
+    UPATH="/service-status"
+    if [ ! -z "$3" ]; then
+        UPATH=$3
+    fi
+    curl -v http://localhost:$PORT$UPATH 2>&1 | grep 200 > /dev/null && printf "%-35s -> %-10s\n" "$APP" "ok" || printf "%-35s -> %-10s\n" "$APP" "not started"
 }
 
-curl -v http://localhost:55500/dev.xml > /dev/null 2> /dev/null | grep 200 && echo "metadata ok" || echo "metadata not started"
-# add passport stub
-curl -v http://localhost:50110/service-name > /dev/null 2> /dev/null | grep policy && echo "policy ok" || echo "policy not started"
-
+check metadata 55500 /dev.xml
 check policy 50110
 check config 50240
 check saml-proxy 50220
@@ -26,6 +27,5 @@ check test-rp-msa 50210
 #check test-rp 50130
 #check stub-idp 50140
 check frontend 50300
-
-# check VSP??
-#export VSP_PORT=50400
+check verify-service-provider 50400 /version-number
+check passport-verify-stub-relying-party 3200 /

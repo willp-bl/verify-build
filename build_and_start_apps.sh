@@ -82,7 +82,8 @@ GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./vsp-startup.sh
 cd $ROOT_DIR
 git clone https://github.com/alphagov/passport-verify-stub-relying-party
 cd passport-verify-stub-relying-party
-./startup.sh
+npm install
+./startup.sh&
 
 # check if all the apps are running
 cd $ROOT_DIR
