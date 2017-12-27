@@ -17,10 +17,16 @@ clone() {
     if [ ! -z "$2" ]; then
         ORG=$2
     fi
+    echo "----> Building $PROJECT"
     if [ ! -d $PROJECT ]; then
-        git clone https://github.com/$ORG/$PROJECT.git
-        mkdir -p output/src/
-        tar zcf output/src/$PROJECT.tgz $PROJECT
+        if [ -f output/src/$PROJECT.tgz ]; then
+            echo "using local copy of repo, not re-cloning, if you don't want this then remove output/src/$PROJECT.tgz"
+            tar zxf output/src/$PROJECT.tgz
+        else
+            git clone https://github.com/$ORG/$PROJECT.git
+            mkdir -p output/src/
+            tar zcf output/src/$PROJECT.tgz $PROJECT
+        fi
     fi
     cd $PROJECT
     if [ "$ORG" = "willp-bl" ]; then

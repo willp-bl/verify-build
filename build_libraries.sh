@@ -14,9 +14,14 @@ clone() {
     local PROJECT=$1
     cd $ROOT_DIR
     if [ ! -d $PROJECT ]; then
-        git clone https://github.com/alphagov/$PROJECT.git > /dev/null 2> /dev/null
-        mkdir -p output/src/
-        tar zcf output/src/$PROJECT.tgz $PROJECT
+        if [ -f output/src/$PROJECT.tgz ]; then
+            echo "using local copy of repo, not re-cloning, if you don't want this then remove output/src/$PROJECT.tgz"
+            tar zxf output/src/$PROJECT.tgz
+        else
+            git clone https://github.com/alphagov/$PROJECT.git > /dev/null 2> /dev/null
+            mkdir -p output/src/
+            tar zcf output/src/$PROJECT.tgz $PROJECT
+        fi
         cd $PROJECT
     fi
 }
@@ -49,19 +54,19 @@ download_build_publish_to_local_maven_repo() {
 }
 
 download_build_publish_to_local_maven_repo "verify-dev-pki"
-#download_build_publish_to_local_maven_repo "verify-saml-extensions"
-#download_build_publish_to_local_maven_repo "verify-test-utils"
-#download_build_publish_to_local_maven_repo "dropwizard-infinispan"
-#download_build_publish_to_local_maven_repo "dropwizard-logstash"
-#download_build_publish_to_local_maven_repo "dropwizard-jade"
-#download_build_publish_to_local_maven_repo "verify-utils-libs"
-#download_build_publish_to_local_maven_repo "verify-saml-serializers"
-#download_build_publish_to_local_maven_repo "verify-saml-domain-objects"
-#download_build_publish_to_local_maven_repo "verify-saml-test-utils"
-#download_build_publish_to_local_maven_repo "verify-saml-security"
-#download_build_publish_to_local_maven_repo "verify-saml-utils"
-#download_build_publish_to_local_maven_repo "verify-saml-metadata-bindings"
-#download_build_publish_to_local_maven_repo "verify-dropwizard-saml"
-#download_build_publish_to_local_maven_repo "verify-stub-idp-saml"
-#download_build_publish_to_local_maven_repo "verify-hub-saml"
-#download_build_publish_to_local_maven_repo "verify-validation"
+download_build_publish_to_local_maven_repo "verify-saml-extensions"
+download_build_publish_to_local_maven_repo "verify-test-utils"
+download_build_publish_to_local_maven_repo "dropwizard-infinispan"
+download_build_publish_to_local_maven_repo "dropwizard-logstash"
+download_build_publish_to_local_maven_repo "dropwizard-jade"
+download_build_publish_to_local_maven_repo "verify-utils-libs"
+download_build_publish_to_local_maven_repo "verify-saml-serializers"
+download_build_publish_to_local_maven_repo "verify-saml-domain-objects"
+download_build_publish_to_local_maven_repo "verify-saml-test-utils"
+download_build_publish_to_local_maven_repo "verify-saml-security"
+download_build_publish_to_local_maven_repo "verify-saml-utils"
+download_build_publish_to_local_maven_repo "verify-saml-metadata-bindings"
+download_build_publish_to_local_maven_repo "verify-dropwizard-saml"
+download_build_publish_to_local_maven_repo "verify-stub-idp-saml"
+download_build_publish_to_local_maven_repo "verify-hub-saml"
+download_build_publish_to_local_maven_repo "verify-validation"
