@@ -15,6 +15,8 @@ clone() {
     cd $ROOT_DIR
     if [ ! -d $PROJECT ]; then
         git clone https://github.com/alphagov/$PROJECT.git > /dev/null 2> /dev/null
+        mkdir -p output/src/
+        tar zcf output/src/$PROJECT.tgz $PROJECT
         cd $PROJECT
     fi
 }
@@ -46,7 +48,7 @@ download_build_publish_to_local_maven_repo() {
     echo "finished $PROJECT"
 }
 
-#download_build_publish_to_local_maven_repo "verify-dev-pki"
+download_build_publish_to_local_maven_repo "verify-dev-pki"
 #download_build_publish_to_local_maven_repo "verify-saml-extensions"
 #download_build_publish_to_local_maven_repo "verify-test-utils"
 #download_build_publish_to_local_maven_repo "dropwizard-infinispan"

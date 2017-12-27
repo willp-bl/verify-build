@@ -19,6 +19,8 @@ clone() {
     fi
     if [ ! -d $PROJECT ]; then
         git clone https://github.com/$ORG/$PROJECT.git
+        mkdir -p output/src/
+        tar zcf output/src/$PROJECT.tgz $PROJECT
     fi
     cd $PROJECT
     if [ "$ORG" = "willp-bl" ]; then
@@ -40,7 +42,8 @@ clone() {
         ./gradlew clean test zip
     fi
 
-    cp $(find . -type f -name *.zip | xargs) /root/output/ || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
+    mkdir -p ../output/bin
+    cp $(find . -type f -name *.zip | xargs) ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
 
 }
 
@@ -54,6 +57,8 @@ clone "verify-hub" willp-bl
 # get the frontend ready to start
 cd $ROOT_DIR
 git clone https://github.com/alphagov/verify-frontend
+mkdir -p output/src/
+tar zcf output/src/verify-frontend.tgz verify-frontend
 cd verify-frontend
 eval "$(rbenv init -)"
 rbenv local 2.4.0
@@ -65,13 +70,15 @@ bundle check || bundle install
 # clone the startup scripts and make sure app logs are readable outside the container
 cd $ROOT_DIR
 git clone https://github.com/willp-bl/verify-local-startup
+mkdir -p output/src/
+tar zcf output/src/verify-local-startup.tgz verify-local-startup
 cd verify-local-startup
 git checkout verify-build
 rbenv local 2.4.0
 gem install bundler
 rbenv rehash
-mkdir -p /root/output/logs
-ln -s /root/output/logs logs
+mkdir -p output/logs
+ln -s output/logs logs
 # start the apps
 GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./startup.sh
 GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./vsp-startup.sh
@@ -79,6 +86,8 @@ GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./vsp-startup.sh
 # start the stub relying party frontend
 cd $ROOT_DIR
 git clone https://github.com/alphagov/passport-verify-stub-relying-party
+mkdir -p output/src/
+tar zcf output/src/passport-verify-stub-relying-party.tgz passport-verify-stub-relying-party
 cd passport-verify-stub-relying-party
 npm install
 ./startup.sh&

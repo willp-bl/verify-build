@@ -21,6 +21,8 @@ RUN apt-get install -y lsof
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install -y nodejs node-typescript
 
+WORKDIR /verify-git-repos
+
 ADD ./build_libraries.sh .
 ADD ./build_and_start_apps.sh .
 ADD ./check_apps.sh .
