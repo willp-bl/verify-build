@@ -3,37 +3,38 @@
 set -e
 
 ROOT_DIR="$(dirname "$0")"
-cd $ROOT_DIR
+cd "$ROOT_DIR"
 ROOT_DIR=$(pwd)
 
 get_build_number() {
-    echo $1 | cut -d '_' -f 2
+    echo "$1" | cut -d '_' -f 2
 }
 
 clone() {
     local PROJECT=$1
-    cd $ROOT_DIR
+    cd "$ROOT_DIR"
     ORG=alphagov
     if [ ! -z "$2" ]; then
         ORG=$2
     fi
     echo "----> Building $PROJECT"
-    if [ ! -d $PROJECT ]; then
-        if [ -f output/src/$PROJECT.tgz ]; then
+    if [ ! -d "$PROJECT" ]; then
+        if [ -f "output/src/$PROJECT.tgz" ]; then
             echo "using local copy of repo, not re-cloning, if you don't want this then remove output/src/$PROJECT.tgz"
-            tar zxf output/src/$PROJECT.tgz
+            tar zxf "output/src/$PROJECT.tgz"
         else
-            git clone https://github.com/$ORG/$PROJECT.git
+            git clone "https://github.com/$ORG/$PROJECT.git"
             mkdir -p output/src/
-            tar zcf output/src/$PROJECT.tgz $PROJECT
+            tar zcf "output/src/$PROJECT.tgz" "$PROJECT"
         fi
     fi
-    cd $PROJECT
+    cd "$PROJECT"
     if [ "$ORG" = "willp-bl" ]; then
         git checkout verify-build
     fi
     BUILD=$(git tag --sort=-taggerdate | grep ^build_ | head -n 1)
-    export BUILD_NUMBER=$(get_build_number $BUILD)
+    _BUILD_NUMBER=$(get_build_number "$BUILD")
+    export BUILD_NUMBER="$_BUILD_NUMBER"
     echo "Build: $BUILD_NUMBER"
 
     echo "   fixing up maven repos"
@@ -49,7 +50,7 @@ clone() {
     fi
 
     mkdir -p ../output/bin
-    cp $(find . -type f -name *.zip | xargs) ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
+    cp $(find . -type f -name '*.zip' | xargs) ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
 
 }
 
@@ -61,7 +62,7 @@ clone "verify-service-provider"
 clone "verify-hub" willp-bl
 
 # get the frontend ready to start
-cd $ROOT_DIR
+cd "$ROOT_DIR"
 git clone https://github.com/alphagov/verify-frontend
 mkdir -p output/src/
 tar zcf output/src/verify-frontend.tgz verify-frontend
@@ -74,7 +75,7 @@ sed -i "s/ruby '2.4.2'/ruby '2.4.0'/g" Gemfile
 bundle check || bundle install
 
 # clone the startup scripts and make sure app logs are readable outside the container
-cd $ROOT_DIR
+cd "$ROOT_DIR"
 git clone https://github.com/willp-bl/verify-local-startup
 mkdir -p output/src/
 tar zcf output/src/verify-local-startup.tgz verify-local-startup
@@ -86,11 +87,11 @@ rbenv rehash
 mkdir -p output/logs
 ln -s output/logs logs
 # start the apps
-GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./startup.sh
-GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH ./vsp-startup.sh
+GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup.sh
+GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
 
 # start the stub relying party frontend
-cd $ROOT_DIR
+cd "$ROOT_DIR"
 git clone https://github.com/alphagov/passport-verify-stub-relying-party
 mkdir -p output/src/
 tar zcf output/src/passport-verify-stub-relying-party.tgz passport-verify-stub-relying-party
@@ -99,7 +100,7 @@ npm install
 ./startup.sh&
 
 # check if all the apps are running
-cd $ROOT_DIR
+cd "$ROOT_DIR"
 ./check_apps.sh
 
 echo "everything started!"
