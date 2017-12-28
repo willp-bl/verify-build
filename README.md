@@ -32,7 +32,7 @@ Two directories are created during a build:
 * no metadata can be created by verify-local-startup yet, so a journey from passport-verify-stub-relying-party/verify-service-provider to the hub cannot be initiated
 * no IDPs are currently available for use wih the hub
 
-# TravisCI
+## TravisCI
 
 The scripts are tested with shellcheck on Travis, not tested in any other way. 
 
