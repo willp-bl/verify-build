@@ -34,7 +34,9 @@ Two directories are created during a build:
 
 # TravisCI
 
-The scripts are tested with shellcheck on Travis, not tested in any other way.
+The scripts are tested with shellcheck on Travis, not tested in any other way. 
+
+[![Build Status](https://travis-ci.org/willp-bl/verify-build.svg?branch=master)](https://travis-ci.org/willp-bl/verify-build)
 
 ## Licence
 
