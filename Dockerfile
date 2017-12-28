@@ -9,10 +9,9 @@ RUN apt-get -y install golang
 RUN GOPATH="$HOME/go" go get -u github.com/cloudflare/cfssl/cmd/...
 RUN GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH cfssl version
 
-RUN rbenv install 2.4.0
-
-# for verify-frontend/puma 3.6.0
+# for verify-frontend/puma 3.6.0 & ruby 2.4.0 on raspberrypi (hopefully)
 RUN apt-get -y install libssl1.0-dev
+RUN rbenv install 2.4.0
 
 # for verify-service-provider
 RUN apt-get install -y lsof
