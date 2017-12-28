@@ -50,7 +50,7 @@ clone() {
     fi
 
     mkdir -p ../output/bin
-    cp $(find . -type f -name '*.zip' | xargs) ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
+    cp "$(find . -type f -name '*.zip' -exec echo {} +)" ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
 
 }
 
