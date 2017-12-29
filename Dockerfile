@@ -1,4 +1,6 @@
 FROM openjdk:8-jdk
+# for raspberrypi3 use the FROM below to use an armhf image; otherwise armel is used and node has no install candidate
+#FROM arm32v7/openjdk:8-jdk
 
 # for ruby
 RUN apt-get update
@@ -17,16 +19,8 @@ RUN rbenv install 2.4.0
 RUN apt-get install -y lsof
 
 # for passport-verify-stub-relying-party
-# this uses nodejs binaries (won't work for armel/raspberrypi)
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install -y nodejs node-typescript
-
-# to build nodejs from source - needed for armel/raspberrypi
-#WORKDIR /nodejs
-#RUN wget https://github.com/nodejs/node/archive/v8.9.3.tar.gz && tar zxf v8.9.3.tar.gz
-#WORKDIR /nodejs/node-8.9.3
-#RUN ./configure && make && make install
-
 RUN node --version && npm --version
 
 WORKDIR /verify-git-repos

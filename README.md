@@ -27,7 +27,7 @@ Two directories are created during a build:
 
 ## Issues
 
-* have to build nodejs from source for armel/raspberrypi - if you are running on armel, comment out the appropriate lines in the Dockerfile
+* when building on a raspberrypi3 use the commented out FROM line in the Dockerfile.  This forces use of an armhf image, rather than an armel one, so nodejs can be installed
 * OCSP response generation in verify-local-startup is disabled because of a cfssl/linux/docker issue
 * no metadata can be created by verify-local-startup yet, so a journey from passport-verify-stub-relying-party/verify-service-provider to the hub cannot be initiated
 * no IDPs are currently available for use wih the hub
