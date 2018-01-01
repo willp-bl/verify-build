@@ -50,8 +50,7 @@ clone() {
     fi
 
     mkdir -p ../output/bin
-    cp "$(find . -type f -name '*.zip' -exec echo {} +)" ../output/bin || echo "failed to copy a zip file, this is probably a duplicate in the MSA, continuing..."
-
+    find . -type f -name '*.zip' -exec cp {} ../output/bin/ \; || echo "failed to copy a zip file, continuing..."
 }
 
 # clone all the apps and compile them - output exported to `cache/output`
@@ -76,6 +75,8 @@ bundle check || bundle install
 
 # clone the startup scripts and make sure app logs are readable outside the container
 cd "$ROOT_DIR"
+mkdir -p output/logs
+ln -s output/logs logs
 git clone https://github.com/willp-bl/verify-local-startup
 mkdir -p output/src/
 tar zcf output/src/verify-local-startup.tgz verify-local-startup
@@ -84,8 +85,6 @@ git checkout verify-build
 rbenv local 2.4.0
 gem install bundler
 rbenv rehash
-mkdir -p output/logs
-ln -s output/logs logs
 # start the apps
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup.sh
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
