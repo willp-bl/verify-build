@@ -4,7 +4,7 @@ ROOT_DIR="$(dirname "$0")"
 cd "$ROOT_DIR"
 docker build -t verify-build .
 VB_MOUNT="$(pwd)/output:/verify-git-repos/output"
-if [ "$1" == "--mount-workspace" ]; then
+if [ "$1" = "--mount-workspace" ]; then
   if [ -d "$(pwd)/workspace" ]; then
     echo "exiting as workspace already exists - move or remove '$(pwd)/workspace'"
     exit 1
