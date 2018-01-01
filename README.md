@@ -20,6 +20,8 @@ These scripts do the following:
 
 To build and run: `./build.sh`
 
+To run the apps on a raspberrypi3, or to have a look at the intermediate build outputs, use the `--mount-workspace` parameter to build.sh.  This is useful for running the apps on a raspberrypi3 as they will be able to use more resources than a single container can.  Run the apps using the scripts in `./workspace/verify-local-startup`
+
 Two directories are created during a build:
 
 * `./cache/`: contains gradle and maven caches to enable faster re-builds
