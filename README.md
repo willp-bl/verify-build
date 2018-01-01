@@ -27,6 +27,10 @@ Two directories are created during a build:
 * `./cache/`: contains gradle and maven caches to enable faster re-builds
 * `./output/`: contains tgz git repos (in src), and built binary apps (in bin), as well as logs from the running apps (in logs)
 
+## Useful links
+
+[links to apps when running locally](links.html)
+
 ## Issues
 
 * when building on a raspberrypi3 use the commented out FROM line in the Dockerfile.  This forces use of an armhf image, rather than an armel one, so nodejs can be installed
