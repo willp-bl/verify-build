@@ -61,7 +61,7 @@ download_build_publish_to_local_maven_repo "dropwizard-infinispan"
 download_build_publish_to_local_maven_repo "dropwizard-logstash"
 download_build_publish_to_local_maven_repo "dropwizard-jade"
 download_build_publish_to_local_maven_repo "verify-utils-libs"
-download_build_publish_to_local_maven_repo "verify-saml-serializers"
+download_build_publish_to_local_maven_repo "verify-saml-serializers" 20
 download_build_publish_to_local_maven_repo "verify-saml-domain-objects"
 download_build_publish_to_local_maven_repo "verify-saml-test-utils"
 download_build_publish_to_local_maven_repo "verify-saml-security"

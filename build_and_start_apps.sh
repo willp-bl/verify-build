@@ -75,12 +75,12 @@ bundle check || bundle install
 
 # clone the startup scripts and make sure app logs are readable outside the container
 cd "$ROOT_DIR"
-mkdir -p output/logs
-ln -s output/logs logs
 git clone https://github.com/willp-bl/verify-local-startup
 mkdir -p output/src/
 tar zcf output/src/verify-local-startup.tgz verify-local-startup
 cd verify-local-startup
+mkdir -p ../output/logs
+ln -s ../output/logs logs
 git checkout verify-build
 rbenv local 2.4.0
 gem install bundler
