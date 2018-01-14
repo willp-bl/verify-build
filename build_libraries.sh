@@ -45,7 +45,7 @@ download_build_publish_to_local_maven_repo() {
         git checkout -- .
         git checkout "$BUILD" 2> /dev/null
         # fixing up maven repos
-        perl -i -0pe 's/maven[\s\{]+[^\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' build.gradle || echo -n
+        perl -i -0pe 's/maven[\s\{]+[^\$\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' build.gradle || echo -n
         # this is for saml-domain-objects only
         local IDA_UTILS_FIXUP="s/utils:2.0.0-309/utils:2.0.0-313/g"
         sed -i "$IDA_UTILS_FIXUP" build.gradle
