@@ -86,7 +86,7 @@ rbenv local 2.4.0
 gem install bundler
 rbenv rehash
 # start the apps
-GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup.sh
+GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup-jars.sh
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
 
 # start the stub relying party frontend
