@@ -3,22 +3,16 @@ FROM openjdk:8-jdk
 #FROM arm32v7/openjdk:8-jdk
 
 # for verify-frontend/puma 3.6.0 & ruby 2.4.0
-RUN apt-get update
-RUN apt-get install -y bundler rbenv ruby-build libssl1.0-dev
-RUN rbenv install 2.4.0
+RUN apt-get update && apt-get install -y bundler rbenv ruby-build libssl1.0-dev && rbenv install 2.4.0
 
 # for pki in verify-local-startup
-RUN apt-get -y install golang
-RUN GOPATH="$HOME/go" go get -u github.com/cloudflare/cfssl/cmd/...
-RUN GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH cfssl version
+RUN apt-get -y install golang && GOPATH="$HOME/go" go get -u github.com/cloudflare/cfssl/cmd/... && GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH cfssl version
 
 # for verify-service-provider
 RUN apt-get install -y lsof
 
 # for passport-verify-stub-relying-party
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-RUN apt-get install -y nodejs node-typescript
-RUN node --version && npm --version
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && apt-get install -y nodejs node-typescript && node --version && npm --version
 
 # to host the build/runtime workspace
 WORKDIR /verify-git-repos
