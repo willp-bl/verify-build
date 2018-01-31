@@ -13,7 +13,7 @@ check() {
     if [ ! -z "$3" ]; then
         UPATH=$3
     fi
-    curl -v "http://localhost:$PORT$UPATH" 2>&1 | grep "HTTP/1.1 200" > /dev/null && printf "%-35s -> %-10s\n" "$APP" "ok" || printf "%-35s -> %-10s\n" "$APP" "not started"
+    curl -v "http://localhost:$PORT$UPATH" 2>&1 | grep "HTTP/1.1 200" > /dev/null && printf "%-35s -> %-10s\\n" "$APP" "ok" || printf "%-35s -> %-10s\\n" "$APP" "not started"
 }
 
 check metadata 55500 /dev.xml
