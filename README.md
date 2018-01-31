@@ -13,8 +13,8 @@ Note: whilst the apps run, there are issues actually doing anything with them - 
 These scripts do the following:
 
 * creates a Docker image that can build and run all the apps (java dependencies and libs are put into cache/gradle and cache/maven external to the container, to prevent re-downloading)
-* builds the ~10 latest versions of all libraries (tgz of git repos is put into output/src)
-* builds and packages the apps (tgz of git repos is put into output/src, binary zips are put into output/bin)
+* builds the ~10 latest versions of all libraries (bare clones of git repos are put into output/git)
+* builds and packages the apps (bare clones of git repos are put into output/git, binary zips are put into output/bin)
 * runs the apps in the container - use `./check_apps.sh` inside or outside the container to test if apps are up
 * after a successful build it drops into a shell in the container.  Exit the shell to stop the apps
 
@@ -25,7 +25,7 @@ To run the apps on a raspberrypi3, or to have a look at the intermediate build o
 Two directories are created during a build:
 
 * `./cache/`: contains gradle and maven caches to enable faster re-builds
-* `./output/`: contains tgz git repos (in src), and built binary apps (in bin), as well as logs from the running apps (in logs)
+* `./output/`: contains bare clones of git repos (in git), and built binary apps (in bin), as well as logs from the running apps (in logs)
 
 ## Useful links
 
