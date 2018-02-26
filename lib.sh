@@ -30,11 +30,19 @@ clone() {
 
 fixup_repos() {
     local PROJECT="$1"
-    perl -i -0pe 's/maven[\s\{]+[^\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' build.gradle
+    perl -i -0pe 's/maven[\s\{]+[^\{\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' build.gradle
     if [ "$PROJECT" = "verify-matching-service-adapter" ]; then
         perl -i -0pe 's/maven[^\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' verify-matching-service-test-tool/build.gradle
     fi
     if [ "$PROJECT" = "verify-saml-domain-objects" ]; then
+        local IDA_UTILS_FIXUP="s/utils:2.0.0-309/utils:2.0.0-313/g"
+        sed -i "$IDA_UTILS_FIXUP" build.gradle
+    fi
+    if [ "$PROJECT" = "verify-saml-test-utils" ]; then
+        local IDA_UTILS_FIXUP="s/utils:2.0.0-309/utils:2.0.0-313/g"
+        sed -i "$IDA_UTILS_FIXUP" build.gradle
+    fi
+    if [ "$PROJECT" = "verify-saml-security" ]; then
         local IDA_UTILS_FIXUP="s/utils:2.0.0-309/utils:2.0.0-313/g"
         sed -i "$IDA_UTILS_FIXUP" build.gradle
     fi
