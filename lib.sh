@@ -46,4 +46,15 @@ fixup_repos() {
         local IDA_UTILS_FIXUP="s/utils:2.0.0-309/utils:2.0.0-313/g"
         sed -i "$IDA_UTILS_FIXUP" build.gradle
     fi
+    if [ "$PROJECT" = "verify-eidas-trust-anchor" ]; then
+        # there is definitely a better way
+        local VETA_FIXUP="s/classpath 'org.gradle.plugins:gradle-compass:1.0.7',//g"
+        sed -i "$VETA_FIXUP" build.gradle
+        local VETA_FIXUP="s/'uk.gov.ida:ida-gradle:1.1.0-15',//g"
+        sed -i "$VETA_FIXUP" build.gradle
+        local VETA_FIXUP="s/'com.github.ben-manes:gradle-versions-plugin/classpath 'com.github.ben-manes:gradle-versions-plugin/g"
+        sed -i "$VETA_FIXUP" build.gradle
+        local VETA_FIXUP="s/apply plugin: 'idaJar'//g"
+        sed -i "$VETA_FIXUP" build.gradle
+    fi
 }

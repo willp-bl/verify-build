@@ -6,7 +6,8 @@ FROM openjdk:8-jdk
 RUN apt-get update && apt-get install -y bundler rbenv ruby-build libssl1.0-dev && rbenv install 2.4.0
 
 # for pki in verify-local-startup
-RUN apt-get -y install golang && GOPATH="$HOME/go" go get -u github.com/cloudflare/cfssl/cmd/... && GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH cfssl version
+# golang 1.8+ needed for master branch of cfssl
+RUN echo 'deb http://ftp.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/stretch-backports.list && apt-get update && apt-get -t stretch-backports -y install golang && GOPATH="$HOME/go" go get -u github.com/cloudflare/cfssl/cmd/... && GOPATH="$HOME/go" PATH="$GOPATH/bin":$PATH cfssl version
 
 # for verify-service-provider
 RUN apt-get install -y lsof

@@ -13,7 +13,7 @@ download_build_publish_to_local_maven_repo() {
     clone "$ROOT_DIR" "$PROJECT" "alphagov"
     cd "$ROOT_DIR/$PROJECT"
     echo "----> Building $PROJECT"
-    BUILDS_TO_DO=10
+    BUILDS_TO_DO=15
     if [ ! -z "$2" ]; then
         BUILDS_TO_DO="$2"
     fi
@@ -37,9 +37,10 @@ download_build_publish_to_local_maven_repo "verify-dev-pki"
 download_build_publish_to_local_maven_repo "verify-saml-extensions"
 download_build_publish_to_local_maven_repo "verify-test-utils"
 download_build_publish_to_local_maven_repo "dropwizard-infinispan"
-download_build_publish_to_local_maven_repo "dropwizard-logstash" 15
+download_build_publish_to_local_maven_repo "dropwizard-logstash"
 download_build_publish_to_local_maven_repo "dropwizard-jade"
-download_build_publish_to_local_maven_repo "verify-utils-libs" 20
+download_build_publish_to_local_maven_repo "verify-utils-libs" 22
+download_build_publish_to_local_maven_repo "verify-eidas-trust-anchor"
 download_build_publish_to_local_maven_repo "verify-saml-serializers" 25
 download_build_publish_to_local_maven_repo "verify-saml-domain-objects"
 download_build_publish_to_local_maven_repo "verify-saml-test-utils"
