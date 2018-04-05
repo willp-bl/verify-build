@@ -4,7 +4,7 @@
 
 This is a personal project containing scripts to build and run the open sourced Verify libraries and apps directly from the open repos on alphagov (and sometimes my forks with minor changes made for building)
 
-Note: whilst the apps run, there are issues actually doing anything with them - see below.
+Note: a journey from a stub relying party can continue through the hub, but stub-idp is [currently] not open source so a journey can't be completed.
 
 **NOTE: this downloads libs from Maven Central and jcenter and you might not like that**
 
@@ -34,7 +34,6 @@ Two directories are created during a build:
 ## Issues
 
 * when building on a raspberrypi3 use the commented out FROM line in the Dockerfile.  This forces use of an armhf image, rather than an armel one, so nodejs can be installed
-* no metadata can be created by verify-local-startup yet, so a journey from passport-verify-stub-relying-party/verify-service-provider to the hub cannot be initiated
 * no IDPs are currently available for use with the hub
 
 ## TravisCI
