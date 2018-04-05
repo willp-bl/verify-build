@@ -34,7 +34,6 @@ download_build_publish_to_local_maven_repo() {
 download_build_publish_to_local_maven_repo "verify-event-emitter"
 download_build_publish_to_local_maven_repo "verify-validation"
 download_build_publish_to_local_maven_repo "verify-dev-pki"
-download_build_publish_to_local_maven_repo "verify-saml-extensions"        # deprecated -> verify-saml-libs
 download_build_publish_to_local_maven_repo "verify-test-utils"
 download_build_publish_to_local_maven_repo "dropwizard-infinispan"
 download_build_publish_to_local_maven_repo "dropwizard-logstash"
@@ -42,12 +41,6 @@ download_build_publish_to_local_maven_repo "dropwizard-jade"
 download_build_publish_to_local_maven_repo "verify-utils-libs" 22
 download_build_publish_to_local_maven_repo "verify-eidas-trust-anchor"
 download_build_publish_to_local_maven_repo "verify-saml-libs"
-download_build_publish_to_local_maven_repo "verify-saml-serializers" 25    # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-domain-objects"    # deprecated -> 🔥
-download_build_publish_to_local_maven_repo "verify-saml-test-utils"        # deprecated -> 🔥
-download_build_publish_to_local_maven_repo "verify-saml-security"          # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-utils"             # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-metadata-bindings" # deprecated -> verify-saml-libs
 download_build_publish_to_local_maven_repo "verify-dropwizard-saml"
 download_build_publish_to_local_maven_repo "verify-stub-idp-saml"
 download_build_publish_to_local_maven_repo "verify-hub-saml"
