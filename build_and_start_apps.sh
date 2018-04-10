@@ -44,6 +44,8 @@ build "verify-matching-service-adapter" willp-bl
 build "verify-service-provider"
 # building from a fork because of ida-gradle
 build "verify-hub" willp-bl
+build "verify-test-rp" willp-bl
+build "verify-stub-idp" willp-bl
 
 # get the frontend ready to start
 cd "$ROOT_DIR"
