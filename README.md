@@ -6,7 +6,9 @@ This is a personal project containing scripts to build and run the open sourced 
 
 ## Status
 
-A full journey from test-rp or verify-service-provider to the hub, stub-idp, and back to the original rp can be completed
+A full journey from test-rp to the hub, stub-idp, and back to the original rp can be completed
+
+To use verify-service-provider another MSA will need to be run/configured or the single MSA will need to use the passport-verify-stub-relying-party LMS - when the user goes back there it fails because the test-rp LMS has been used.
 
 ## Building
 
