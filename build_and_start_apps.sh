@@ -60,7 +60,7 @@ sed -i "s/ruby '2.4.2'/ruby '2.4.0'/g" Gemfile
 bundle check || bundle install
 
 # start postgres
-sudo service postgres start
+sudo service postgresql start
 
 # clone the startup scripts and make sure app logs are readable outside the container
 cd "$ROOT_DIR"
