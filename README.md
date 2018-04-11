@@ -1,14 +1,16 @@
 # verify-build
 
-**NOTE: this is for demonstration purposes only and not for production use**
+**NOTE: this is for learning and demonstration purposes only**
 
 This is a personal project containing scripts to build and run the open sourced Verify libraries and apps directly from the open repos on alphagov (and sometimes my forks with minor changes made for building)
 
-Note: a journey from a stub relying party can continue through the hub, but stub-idp is [currently] not open source so a journey can't be completed.
+## Status
 
-**NOTE: this downloads libs from Maven Central and jcenter and you might not like that**
+A full journey from test-rp or verify-service-provider to the hub, stub-idp, and back to the original rp can be completed
 
 ## Building
+
+**NOTE: this downloads libs from Maven Central and jcenter and you might not like that**
 
 These scripts do the following:
 
