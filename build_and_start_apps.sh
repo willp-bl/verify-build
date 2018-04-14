@@ -91,7 +91,7 @@ sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relyin
 cd "$PROJECT"
 export DATABASE_CONNECTION_STRING="jdbc:postgresql://localhost:5432/stub_rp_test?user=postgres&password=password"
 npm install
-DEBUG='passport-verify:*' ./startup.sh 2>&1 >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log&
+DEBUG='passport-verify:*' ./startup.sh >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log 2>&1 &
 
 # use the correct local matching service for passport-verify-stub-relying-party
 cd "$ROOT_DIR"
