@@ -15,10 +15,8 @@ RUN apt-get install -y lsof
 # for passport-verify-stub-relying-party
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && apt-get install -y nodejs node-typescript && node --version && npm --version
 
-# for stub-idp - note that the database is not accessible from outside this container
-# which is good because this command sets the password to password which is generally a
-# very bad idea and not recommended
-RUN apt-get install -y postgresql postgresql-client && service postgresql start && sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password 'password';"
+# for stub-idp, verify-local-matching-service-example & passport-verify-stub-relying-party
+RUN apt-get install -y postgresql postgresql-client
 
 # to host the build/runtime workspace
 WORKDIR /verify-git-repos
