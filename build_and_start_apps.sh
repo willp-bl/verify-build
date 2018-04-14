@@ -81,25 +81,23 @@ rbenv rehash
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup-jars.sh
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
 
-# create the database for passport-verify-stub-relying-party
+# start the stub relying party frontend
 cd "$ROOT_DIR"
+PROJECT="passport-verify-stub-relying-party"
+clone "$ROOT_DIR" "$PROJECT" "alphagov"
+# create the database for passport-verify-stub-relying-party
 sudo -u postgres createdb stub_rp_test
 sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relying-party/database-schema.sql
+cd "$PROJECT"
 export DATABASE_CONNECTION_STRING="jdbc:postgresql://localhost:5432/stub_rp_test?user=postgres&password=password"
+npm install
+DEBUG='passport-verify:*' ./startup.sh 2>&1 >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log&
 
 # use the correct local matching service for passport-verify-stub-relying-party
 cd "$ROOT_DIR"
 build "verify-local-matching-service-example"
 ./gradlew installDist
 DB_URI=$DATABASE_CONNECTION_STRING PORT=50500 ./build/install/matchingservice/bin/matchingservice server verify-local-matching-service-example.yml&
-
-# start the stub relying party frontend
-cd "$ROOT_DIR"
-PROJECT="passport-verify-stub-relying-party"
-clone "$ROOT_DIR" "$PROJECT" "alphagov"
-cd "$PROJECT"
-npm install
-DEBUG='passport-verify:*' ./startup.sh 2>&1 >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log&
 
 # check if all the apps are running
 cd "$ROOT_DIR"
