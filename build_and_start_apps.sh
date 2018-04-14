@@ -99,7 +99,7 @@ PROJECT="passport-verify-stub-relying-party"
 clone "$ROOT_DIR" "$PROJECT" "alphagov"
 cd "$PROJECT"
 npm install
-DEBUG=passport-verify:* ./startup.sh 2>&1 >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log&
+DEBUG='passport-verify:*' ./startup.sh 2>&1 >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log&
 
 # check if all the apps are running
 cd "$ROOT_DIR"
