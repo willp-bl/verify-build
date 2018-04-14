@@ -13,9 +13,6 @@ git fetch upstream --tags
 git checkout master
 git merge upstream/master
 
-# exit before making any remote changes
-exit 1
-
 git push
 git push --tags
 
