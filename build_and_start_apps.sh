@@ -28,7 +28,7 @@ build() {
 
     fixup_repos "$PROJECT"
 
-    if [ "$PROJECT" = "verify-service-provider" ]; then
+    if [ "$PROJECT" = "verify-service-provider" ] || [ "$PROJECT" = "verify-local-matching-service-example" ] ; then
         ./gradlew -Dorg.gradle.daemon=false clean test distZip
     else
         ./gradlew -Dorg.gradle.daemon=false clean test zip
