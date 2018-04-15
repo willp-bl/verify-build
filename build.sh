@@ -16,7 +16,7 @@ if [ "$1" = "--mount-workspace" ]; then
 else
   echo "mounting output directories at $(pwd)/output"
 fi
-docker run -it --rm --cpus=3 \
+docker run -it --rm --cpus=3 --memory=3g \
   -v "$(pwd)/cache/gradle:/root/.gradle" \
   -v "$(pwd)/cache/maven:/root/.m2" \
   -v "$VB_MOUNT" \
