@@ -4,6 +4,9 @@ language: bash
 # Use container-based infrastructure for quicker build start-up
 sudo: false
 
+before_install:
+  - apt-get remove binutils
+
 addons:
   apt:
     sources:
