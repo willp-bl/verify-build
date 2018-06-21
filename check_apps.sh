@@ -24,8 +24,10 @@ check saml-soap-proxy 50160
 check stub-event-sink 51100
 check saml-engine 50120
 check test-rp-msa 50210
+check vsp-msa 3300
 check test-rp 50130
 check stub-idp 50140
 check frontend 50300
+check example-local-matching-service 50500 /version-number
 check verify-service-provider 50400 /version-number
 check passport-verify-stub-relying-party 3200 /

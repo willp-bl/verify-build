@@ -10,10 +10,10 @@ source lib.sh
 
 download_build_publish_to_local_maven_repo() {
     local PROJECT=$1
-    clone "$ROOT_DIR" "$PROJECT" "alphagov"
+    clone "$ROOT_DIR" "$PROJECT" "willp-bl"
     cd "$ROOT_DIR/$PROJECT"
     echo "----> Building $PROJECT"
-    BUILDS_TO_DO=15
+    BUILDS_TO_DO=5
     if [ ! -z "$2" ]; then
         BUILDS_TO_DO="$2"
     fi
@@ -31,24 +31,18 @@ download_build_publish_to_local_maven_repo() {
     echo "finished $PROJECT"
 }
 
-download_build_publish_to_local_maven_repo "verify-event-emitter"
-download_build_publish_to_local_maven_repo "verify-validation"
-download_build_publish_to_local_maven_repo "verify-dev-pki"
-download_build_publish_to_local_maven_repo "verify-saml-extensions"        # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-test-utils"
+# build tools
+#download_build_publish_to_local_maven_repo "verify-gradle"
+
+# libraries
+download_build_publish_to_local_maven_repo "verify-event-emitter" 15
+download_build_publish_to_local_maven_repo "verify-dev-pki" 7
+download_build_publish_to_local_maven_repo "verify-test-utils" 6
 download_build_publish_to_local_maven_repo "dropwizard-infinispan"
-download_build_publish_to_local_maven_repo "dropwizard-logstash"
+download_build_publish_to_local_maven_repo "dropwizard-logstash" 15
 download_build_publish_to_local_maven_repo "dropwizard-jade"
-download_build_publish_to_local_maven_repo "verify-utils-libs" 22
+download_build_publish_to_local_maven_repo "verify-utils-libs" 16
 download_build_publish_to_local_maven_repo "verify-eidas-trust-anchor"
-download_build_publish_to_local_maven_repo "verify-saml-libs"
-download_build_publish_to_local_maven_repo "verify-saml-serializers" 25    # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-domain-objects"    # deprecated -> 🔥
-download_build_publish_to_local_maven_repo "verify-saml-test-utils"        # deprecated -> 🔥
-download_build_publish_to_local_maven_repo "verify-saml-security"          # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-utils"             # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-saml-metadata-bindings" # deprecated -> verify-saml-libs
-download_build_publish_to_local_maven_repo "verify-dropwizard-saml"
-download_build_publish_to_local_maven_repo "verify-stub-idp-saml"
-download_build_publish_to_local_maven_repo "verify-hub-saml"
+download_build_publish_to_local_maven_repo "verify-saml-libs" 3
+download_build_publish_to_local_maven_repo "verify-stub-idp-saml" 2
 download_build_publish_to_local_maven_repo "verify-eidas-notification"

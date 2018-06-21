@@ -11,27 +11,23 @@ source lib.sh
 build() {
     local PROJECT="$1"
     cd "$ROOT_DIR"
-    ORG=alphagov
+    ORG=willp-bl
     if [ ! -z "$2" ]; then
         ORG="$2"
     fi
     clone "$ROOT_DIR" "$PROJECT" "$ORG"
     cd "$ROOT_DIR/$PROJECT"
-    if [ "$ORG" = "willp-bl" ]; then
-        git checkout verify-build
-    fi
 
-    BUILD=$(git tag --sort=-taggerdate | grep ^build_ | head -n 1)
-    _BUILD_NUMBER=$(get_build_number "$BUILD")
-    export BUILD_NUMBER="$_BUILD_NUMBER"
-    echo "Build: $BUILD_NUMBER"
-
+    set_build_number
     fixup_repos "$PROJECT"
 
     if [ "$PROJECT" = "verify-service-provider" ] || [ "$PROJECT" = "verify-local-matching-service-example" ] ; then
         ./gradlew -Dorg.gradle.daemon=false clean test distZip
     else
         ./gradlew -Dorg.gradle.daemon=false clean test zip
+        if [ "$PROJECT" = "verify-hub" ]; then
+            ./gradlew -Dorg.gradle.daemon=false publishToMavenLocal # for hub-saml
+        fi
     fi
 
     mkdir -p ../output/bin
@@ -39,18 +35,16 @@ build() {
 }
 
 # clone all the apps and compile them - output exported to `cache/output`
-# building from a fork because of ida-gradle
-build "verify-matching-service-adapter" willp-bl
+build "verify-hub"
+build "verify-matching-service-adapter"
 build "verify-service-provider"
-# building from a fork because of ida-gradle
-build "verify-hub" willp-bl
-build "verify-test-rp" willp-bl
-build "verify-stub-idp" willp-bl
+build "verify-test-rp"
+build "verify-stub-idp"
 
 # get the frontend ready to start
 cd "$ROOT_DIR"
 PROJECT="verify-frontend"
-clone "$ROOT_DIR" "$PROJECT" "alphagov"
+clone "$ROOT_DIR" "$PROJECT"
 cd "$PROJECT"
 eval "$(rbenv init -)"
 rbenv local 2.4.0
@@ -69,7 +63,7 @@ sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with passw
 # clone the startup scripts and make sure app logs are readable outside the container
 cd "$ROOT_DIR"
 PROJECT="verify-local-startup"
-clone "$ROOT_DIR" "$PROJECT" "willp-bl"
+clone "$ROOT_DIR" "$PROJECT"
 cd "$PROJECT"
 mkdir -p ../output/logs
 ln -s ../output/logs logs
@@ -95,7 +89,7 @@ DB_URI=$DATABASE_CONNECTION_STRING PORT=50500 ./build/install/verify-local-match
 # start the stub relying party frontend
 cd "$ROOT_DIR"
 PROJECT="passport-verify-stub-relying-party"
-clone "$ROOT_DIR" "$PROJECT" "alphagov"
+clone "$ROOT_DIR" "$PROJECT"
 # the verify-local-matching-service-example should have set up the database
 # sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relying-party/database-schema.sql
 cd "$PROJECT"
