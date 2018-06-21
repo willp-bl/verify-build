@@ -4,15 +4,14 @@ language: bash
 # Use container-based infrastructure for quicker build start-up
 sudo: false
 
-before_install:
-  - apt-get remove binutils
-
 addons:
   apt:
     sources:
     - debian-sid    # Grab shellcheck from the Debian repo (o_O)
-    packages:
-    - shellcheck
+
+before_script:
+  - apt-get remove binutils
+  - apt-get install shellcheck
 
 script:
  - shellcheck *.sh
