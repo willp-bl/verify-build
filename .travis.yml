@@ -10,8 +10,8 @@ addons:
     - debian-sid    # Grab shellcheck from the Debian repo (o_O)
 
 before_script:
-  - apt-get remove binutils
-  - apt-get install shellcheck
+  - sudo apt-get remove binutils
+  - sudo apt-get install shellcheck
 
 script:
  - shellcheck *.sh
