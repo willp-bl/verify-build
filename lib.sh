@@ -7,10 +7,9 @@ get_build_number() {
 }
 
 set_build_number() {
-    # BUILD=$(git tag --sort=-taggerdate | grep ^build_ | head -n 1)
-    # _BUILD_NUMBER=$(get_build_number "$BUILD")
-    # hard code the build number
-    export BUILD_NUMBER=100 #"$_BUILD_NUMBER"
+    BUILD=$(git tag --sort=-taggerdate | grep ^build_ | head -n 1)
+    _BUILD_NUMBER=$(get_build_number "$BUILD")
+    export BUILD_NUMBER="$_BUILD_NUMBER"
     echo "Build: $BUILD_NUMBER"
 }
 

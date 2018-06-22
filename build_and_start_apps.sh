@@ -73,7 +73,7 @@ gem install bundler
 rbenv rehash
 # start the apps
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup-jars.sh
-GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
+MSA_METADATA_URL="http://localhost:3300/matching-service/SAML2/metadata" MSA_ENTITY_ID="http://vsp.dev-rp-ms.local/SAML2/MD" GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
 
 # create the database for passport-verify-stub-relying-party
 sudo -u postgres createdb stub_rp_test
@@ -94,6 +94,8 @@ clone "$ROOT_DIR" "$PROJECT"
 # sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relying-party/database-schema.sql
 cd "$PROJECT"
 npm install
+export ENTITY_ID="http://vsp.dev-rp.local/SAML2/MD"
+export DATABASE_CONNECTION_STRING="postgresql://postgres:password@localhost:5432/stub_rp_test"
 DEBUG='passport-verify:*' ./startup.sh >../verify-local-startup/logs/passport-verify-stub-relying-party_console.log 2>&1 &
 
 

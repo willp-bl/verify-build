@@ -13,7 +13,7 @@ check() {
     if [ ! -z "$3" ]; then
         UPATH=$3
     fi
-    curl -v "http://localhost:$PORT$UPATH" 2>&1 | grep "HTTP/1.1 200" > /dev/null && printf "%-35s -> %-10s\\n" "$APP" "ok" || printf "%-35s -> %-10s\\n" "$APP" "not started"
+    curl -v "http://localhost:$PORT$UPATH" 2>&1 | grep "HTTP/1.1 [24]0[04]" > /dev/null && printf "%-35s -> %-10s\\n" "$APP" "ok" || printf "%-35s -> %-10s\\n" "$APP" "not started"
 }
 
 check metadata 55500 /dev.xml
@@ -28,6 +28,6 @@ check vsp-msa 3300
 check test-rp 50130
 check stub-idp 50140
 check frontend 50300
-check example-local-matching-service 50500 /version-number
+check example-local-matching-service 50500 /foo
 check verify-service-provider 50400 /version-number
 check passport-verify-stub-relying-party 3200 /
