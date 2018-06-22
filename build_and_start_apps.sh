@@ -93,6 +93,7 @@ clone "$ROOT_DIR" "$PROJECT"
 # the verify-local-matching-service-example should have set up the database
 # sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relying-party/database-schema.sql
 cd "$PROJECT"
+git checkout verify-build
 npm install
 export ENTITY_ID="http://vsp.dev-rp.local/SAML2/MD"
 export DATABASE_CONNECTION_STRING="postgresql://postgres:password@localhost:5432/stub_rp_test"
