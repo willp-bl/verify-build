@@ -41,8 +41,8 @@ download_build_publish_to_local_maven_repo "verify-test-utils" 6
 download_build_publish_to_local_maven_repo "dropwizard-infinispan"
 download_build_publish_to_local_maven_repo "dropwizard-logstash" 15
 download_build_publish_to_local_maven_repo "dropwizard-jade"
-download_build_publish_to_local_maven_repo "verify-utils-libs" 16
+download_build_publish_to_local_maven_repo "verify-utils-libs"
 download_build_publish_to_local_maven_repo "verify-eidas-trust-anchor"
 download_build_publish_to_local_maven_repo "verify-saml-libs" 3
 download_build_publish_to_local_maven_repo "verify-stub-idp-saml" 2
-download_build_publish_to_local_maven_repo "verify-eidas-notification"
+download_build_publish_to_local_maven_repo "verify-eidas-notification" 1
