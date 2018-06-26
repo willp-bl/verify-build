@@ -24,5 +24,5 @@ WORKDIR /verify-git-repos
 # ensure all the apps can be seen from outside the container, excluding admin ports
 EXPOSE 3200 3300 55500 50110 50240 50220 50160 51100 50120 50210 50130 50140 50400 50300 50500
 
-ADD ./build_libraries.sh ./build_and_start_apps.sh ./check_apps.sh ./lib.sh ./
+ADD ./build_libraries.sh ./build_and_start_apps.sh ./check_apps.sh ./lib.sh ./generate_eidas_metadata.sh ./
 CMD ./build_libraries.sh && ./build_and_start_apps.sh

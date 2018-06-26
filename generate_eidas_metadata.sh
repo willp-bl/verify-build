@@ -46,3 +46,12 @@ echo "generating trust anchor..."
 java -jar "./build/libs/verify-eidas-trust-anchor-1.0-$BUILD_NUMBER.jar" sign-with-file ./*.jwk --cert=../verify-local-startup/data/pki/metadata_signing_a.crt --key=../verify-local-startup/data/pki/metadata_signing_a.pk8 -o trust-anchor
 cp trust-anchor ../verify-local-startup/data/metadata/
 
+# force reload of eidas metadata everywhere
+# saml-engine
+curl -XPOST http://localhost:50121/tasks/eidas-metadata-refresh
+# saml-proxy
+curl -XPOST http://localhost:50221/tasks/eidas-metadata-refresh
+# test-rp-msa - no refresh task
+#curl -XPOST http://localhost:50211/tasks/eidas-metadata-refresh
+# vsp-msa - no refresh task
+#curl -XPOST http://localhost:3301/tasks/eidas-metadata-refresh

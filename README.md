@@ -8,6 +8,7 @@ This is a personal project containing scripts to build and run the open sourced 
 
 * A full journey from test-rp to the hub, stub-idp, and back to the original rp can be completed
 * A full journey from passport-stub (using verify-service-provider and example local matching service) can be completed (use stub-idp-three-elms user)
+* A full journey from test-rp to hub to stub-country and back can be completed
 
 ## Building
 

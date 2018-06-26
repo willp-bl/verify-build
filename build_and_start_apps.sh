@@ -75,9 +75,11 @@ rbenv rehash
 GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./startup-jars.sh
 MSA_METADATA_URL="http://localhost:3300/matching-service/SAML2/metadata" MSA_ENTITY_ID="http://vsp.dev-rp-ms.local/SAML2/MD" GOPATH="$HOME/go" PATH="$HOME/go/bin":$PATH ./vsp-startup.sh
 
+cd "$ROOT_DIR"
 ./generate_eidas_metadata.sh
 
 # create the database for passport-verify-stub-relying-party
+cd "$ROOT_DIR"
 sudo -u postgres createdb stub_rp_test
 export DATABASE_CONNECTION_STRING="jdbc:postgresql://localhost:5432/stub_rp_test?user=postgres&password=password"
 
