@@ -8,16 +8,18 @@ ROOT_DIR=$(pwd)
 
 source lib.sh
 
-build() {
+clone_and_cd() {
     local PROJECT="$1"
     cd "$ROOT_DIR"
-    ORG=willp-bl
-    if [ ! -z "$2" ]; then
-        ORG="$2"
-    fi
-    clone "$ROOT_DIR" "$PROJECT" "$ORG"
-    cd "$ROOT_DIR/$PROJECT"
+    clone "$ROOT_DIR" "$PROJECT"
+    cd "$PROJECT"
+    git checkout verify-build
+}
 
+build() {
+    local PROJECT="$1"
+
+    clone_and_cd "$PROJECT"
     set_build_number
     fixup_repos "$PROJECT"
 
@@ -42,10 +44,8 @@ build "verify-test-rp"
 build "verify-stub-idp"
 
 # get the frontend ready to start
-cd "$ROOT_DIR"
 PROJECT="verify-frontend"
-clone "$ROOT_DIR" "$PROJECT"
-cd "$PROJECT"
+clone_and_cd "$PROJECT"
 eval "$(rbenv init -)"
 rbenv local 2.4.0
 gem install bundler
@@ -61,10 +61,8 @@ sudo service postgresql start
 sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password 'password';"
 
 # clone the startup scripts and make sure app logs are readable outside the container
-cd "$ROOT_DIR"
 PROJECT="verify-local-startup"
-clone "$ROOT_DIR" "$PROJECT"
-cd "$PROJECT"
+clone_and_cd "$PROJECT"
 mkdir -p ../output/logs
 ln -s ../output/logs logs
 git checkout verify-build
@@ -85,19 +83,15 @@ export DATABASE_CONNECTION_STRING="jdbc:postgresql://localhost:5432/stub_rp_test
 
 # use the correct local matching service for passport-verify-stub-relying-party
 # this needs to run first because it sets up the database
-cd "$ROOT_DIR"
 build "verify-local-matching-service-example"
 ./gradlew installDist
 DB_URI=$DATABASE_CONNECTION_STRING PORT=50500 ./build/install/verify-local-matching-service-example/bin/verify-local-matching-service-example server verify-local-matching-service-example.yml > ../verify-local-startup/logs/verify-local-matching-service-example_console.log 2>&1 &
 
 # start the stub relying party frontend
-cd "$ROOT_DIR"
 PROJECT="passport-verify-stub-relying-party"
-clone "$ROOT_DIR" "$PROJECT"
+clone_and_cd "$PROJECT"
 # the verify-local-matching-service-example should have set up the database
 # sudo -u postgres psql -U postgres -d stub_rp_test -f passport-verify-stub-relying-party/database-schema.sql
-cd "$PROJECT"
-git checkout verify-build
 npm install
 export ENTITY_ID="http://vsp.dev-rp.local/SAML2/MD"
 export DATABASE_CONNECTION_STRING="postgresql://postgres:password@localhost:5432/stub_rp_test"

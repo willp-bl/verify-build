@@ -12,6 +12,7 @@ download_build_publish_to_local_maven_repo() {
     local PROJECT=$1
     clone "$ROOT_DIR" "$PROJECT" "willp-bl"
     cd "$ROOT_DIR/$PROJECT"
+    git checkout verify-build
     echo "----> Building $PROJECT"
     BUILDS_TO_DO=5
     if [ ! -z "$2" ]; then
