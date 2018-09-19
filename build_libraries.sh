@@ -18,7 +18,7 @@ download_build_publish_to_local_maven_repo() {
         BUILDS_TO_DO="$2"
     fi
 
-    BUILDS=$(git tag --sort=-taggerdate | grep ^build_ | head -n "$BUILDS_TO_DO")
+    BUILDS=$(git tag --sort=-taggerdate --merged | grep ^build_ | head -n "$BUILDS_TO_DO")
     for BUILD in $BUILDS; do
         echo -n "building $BUILD... "
         _BUILD_NUMBER=$(get_build_number "$BUILD")
