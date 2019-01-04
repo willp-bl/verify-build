@@ -48,7 +48,7 @@ PROJECT="verify-frontend"
 clone_and_cd "$PROJECT"
 eval "$(rbenv init -)"
 rbenv local 2.4.0
-gem install bundler
+gem install bundler -v '<2.0'
 rbenv rehash
 sed -i "s/ruby '2.4.2'/ruby '2.4.0'/g" Gemfile
 bundle check || bundle install
