@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk
-# for raspberrypi3 use the FROM below to use an armhf image; otherwise armel is used and node has no install candidate
+# for raspberrypi3/4 use the FROM below to use an armhf image; otherwise armel is used and node has no install candidate
 #FROM arm32v7/openjdk:8-jdk
 
 # for verify-frontend/puma 3.6.0 & ruby 2.4.0

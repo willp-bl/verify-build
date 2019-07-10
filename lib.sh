@@ -41,6 +41,9 @@ fixup_repos() {
     if [ "$PROJECT" = "verify-matching-service-adapter" ]; then
         perl -i -0pe 's/maven[^\}]*\}/maven { url \"https:\/\/build.shibboleth.net\/nexus\/content\/groups\/public\" \n url \"https:\/\/repo1.maven.org\/maven2\" \n jcenter() \n mavenLocal() }/gms' verify-matching-service-test-tool/build.gradle
     fi
+    # should change the gradle files to use the correct version, but hey this whole thing is a massive hack anyway
+    local HUB_SAML_FIXUP="s/-15583/-15584/g"
+    sed -i "$HUB_SAML_FIXUP" build.gradle
     if [ "$PROJECT" = "verify-eidas-trust-anchor" ]; then
         # there is definitely a better way
         local VETA_FIXUP="s/classpath 'org.gradle.plugins:gradle-compass:1.0.7',//g"

@@ -6,9 +6,11 @@ This is a personal project containing scripts to build and run the open sourced 
 
 ## Status
 
-* A full journey from test-rp to the hub, stub-idp, and back to the original rp can be completed
+* A full journey from test-rp to the hub, stub-idp/headless-idp, and back to the original rp can be completed
 * A full journey from passport-stub (using verify-service-provider and example local matching service) can be completed (use stub-idp-three-elms user)
 * A full journey from test-rp to hub to stub-country and back can be completed
+* Tested working on a raspberrypi4/4gb
+* Can now set EXTERNAL_HOST in one of the scripts to be able to access apps from a different machine
 
 ## Building
 
@@ -37,8 +39,7 @@ Two directories are created during a build:
 
 ## Issues
 
-* when building on a raspberrypi3 use the commented out FROM line in the Dockerfile.  This forces use of an armhf image, rather than an armel one, so nodejs can be installed
-* no IDPs are currently available for use with the hub
+* when building on a raspberrypi3/4 use the commented out FROM line in the Dockerfile.  This forces use of an armhf image, rather than an armel one, so nodejs can be installed
 
 ## TravisCI
 

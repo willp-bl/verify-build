@@ -60,6 +60,10 @@ sudo service postgresql start
 # very bad idea and not recommended
 sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password 'password';"
 
+# you can change this to the external IP of your machine to be able to access the apps
+# on a separate machine
+export EXTERNAL_HOST=127.0.0.1
+
 # clone the startup scripts and make sure app logs are readable outside the container
 PROJECT="verify-local-startup"
 clone_and_cd "$PROJECT"
