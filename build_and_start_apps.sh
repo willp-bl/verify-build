@@ -90,7 +90,7 @@ export DATABASE_CONNECTION_STRING="jdbc:postgresql://localhost:5432/stub_rp_test
 # use the correct local matching service for passport-verify-stub-relying-party
 # this needs to run first because it sets up the database
 build "verify-local-matching-service-example"
-./gradlew installDist
+./gradlew installDist --no-daemon
 DB_URI=$DATABASE_CONNECTION_STRING PORT=50500 ./build/install/verify-local-matching-service-example/bin/verify-local-matching-service-example server verify-local-matching-service-example.yml > ../verify-local-startup/logs/verify-local-matching-service-example_console.log 2>&1 &
 
 # start the stub relying party frontend
